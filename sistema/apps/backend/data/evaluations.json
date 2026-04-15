@@ -19,5 +19,12 @@
     "meta": "security",
     "status": "MPA",
     "updatedAt": "2026-04-15T14:15:34.484Z"
+  },
+  {
+    "classId": "7ab79f05-a595-46d5-8456-79b839c86a84",
+    "studentId": "876aa0fb-8987-4b5d-aca3-13f623cce8f7",
+    "meta": "backend",
+    "status": "MPA",
+    "updatedAt": "2026-04-15T18:52:07.294Z"
   }
 ]

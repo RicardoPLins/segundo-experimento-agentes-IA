@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   Alert,
   Box,
+  Button,
   FormControl,
   InputLabel,
   MenuItem,
@@ -13,6 +14,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  Stack,
   Typography
 } from "@mui/material";
 import { api } from "../api";
@@ -38,6 +40,7 @@ const EvaluationsPage = () => {
   const [selectedClassId, setSelectedClassId] = useState<string>("");
   const [rows, setRows] = useState<EvaluationRow[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [digestInfo, setDigestInfo] = useState<string | null>(null);
 
   const loadClasses = async () => {
     const data = await api.get<ClassEntity[]>("/classes");
@@ -66,9 +69,26 @@ const EvaluationsPage = () => {
       return;
     }
     setError(null);
+    setDigestInfo(null);
     try {
       await api.put(`/classes/${selectedClassId}/evaluations/${studentId}`, { meta, status });
       await loadEvaluations(selectedClassId);
+    } catch (err) {
+      setError(String(err));
+    }
+  };
+
+  const sendDigest = async () => {
+    setError(null);
+    setDigestInfo(null);
+    try {
+      const result = await api.post<{ sent: Array<{ to: string }>; skipped: number }>(
+        "/jobs/send-daily-digests",
+        {}
+      );
+      setDigestInfo(
+        `Sent ${result.sent.length} email(s). Skipped: ${result.skipped}.`
+      );
     } catch (err) {
       setError(String(err));
     }
@@ -81,24 +101,34 @@ const EvaluationsPage = () => {
       </Typography>
 
       {error && <Alert severity="error">{error}</Alert>}
+      {digestInfo && <Alert severity="success">{digestInfo}</Alert>}
 
       <Paper sx={{ p: 2 }}>
-        <FormControl fullWidth>
-          <InputLabel id="class-select-label">Select class</InputLabel>
-          <Select
-            labelId="class-select-label"
-            value={selectedClassId}
-            label="Select class"
-            onChange={(e: SelectChangeEvent) => setSelectedClassId(String(e.target.value))}
-          >
-            <MenuItem value="">-- select --</MenuItem>
-            {classes.map((c) => (
-              <MenuItem key={c.id} value={c.id}>
-                {c.topic} ({c.year}/{c.semester})
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <Stack
+          spacing={2}
+          direction={{ xs: "column", sm: "row" }}
+          sx={{ alignItems: "center" }}
+        >
+          <FormControl fullWidth>
+            <InputLabel id="class-select-label">Select class</InputLabel>
+            <Select
+              labelId="class-select-label"
+              value={selectedClassId}
+              label="Select class"
+              onChange={(e: SelectChangeEvent) => setSelectedClassId(String(e.target.value))}
+            >
+              <MenuItem value="">-- select --</MenuItem>
+              {classes.map((c) => (
+                <MenuItem key={c.id} value={c.id}>
+                  {c.topic} ({c.year}/{c.semester})
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <Button variant="contained" onClick={sendDigest}>
+            Send Daily Digest
+          </Button>
+        </Stack>
       </Paper>
 
       {selectedClassId && (

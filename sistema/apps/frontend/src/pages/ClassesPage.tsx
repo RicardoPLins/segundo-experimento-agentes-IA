@@ -1,4 +1,4 @@
-import { useEffect, useState, type ChangeEvent } from "react";
+import { useEffect, useMemo, useState, type ChangeEvent } from "react";
 import {
   Alert,
   Box,
@@ -7,6 +7,8 @@ import {
   InputLabel,
   List,
   ListItem,
+  ListItemSecondaryAction,
+  ListItemText,
   MenuItem,
   Paper,
   Select,
@@ -39,6 +41,12 @@ const ClassesPage = () => {
   const [form, setForm] = useState({ topic: "", year: 2026, semester: 1 });
   const [selectedStudentId, setSelectedStudentId] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
+
+  const rosterIds = useMemo(() => new Set(roster.map((s) => s.id)), [roster]);
+  const availableStudents = useMemo(
+    () => students.filter((student) => !rosterIds.has(student.id)),
+    [students, rosterIds]
+  );
 
   const load = async () => {
     const [classesData, studentsData] = await Promise.all([
@@ -90,6 +98,34 @@ const ClassesPage = () => {
     }
   };
 
+  const unenroll = async (studentId: string) => {
+    if (!selectedClassId) {
+      return;
+    }
+    setError(null);
+    try {
+      await api.del(`/classes/${selectedClassId}/students/${studentId}`);
+      await loadRoster(selectedClassId);
+      await load();
+    } catch (err) {
+      setError(String(err));
+    }
+  };
+
+  const removeClass = async (classId: string) => {
+    setError(null);
+    try {
+      await api.del(`/classes/${classId}`);
+      if (selectedClassId === classId) {
+        setSelectedClassId("");
+        setRoster([]);
+      }
+      await load();
+    } catch (err) {
+      setError(String(err));
+    }
+  };
+
   return (
     <Box component="section" sx={{ display: "grid", gap: 2 }}>
       <Typography variant="h4" component="h2">
@@ -115,18 +151,42 @@ const ClassesPage = () => {
               setForm({ ...form, year: Number(e.target.value) })
             }
           />
-          <TextField
-            type="number"
-            label="Semester"
-            value={form.semester}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setForm({ ...form, semester: Number(e.target.value) })
-            }
-          />
+          <FormControl>
+            <InputLabel id="semester-select-label">Semester</InputLabel>
+            <Select
+              labelId="semester-select-label"
+              label="Semester"
+              value={String(form.semester)}
+              onChange={(e: SelectChangeEvent) =>
+                setForm({ ...form, semester: Number(e.target.value) })
+              }
+            >
+              <MenuItem value="1">1</MenuItem>
+              <MenuItem value="2">2</MenuItem>
+            </Select>
+          </FormControl>
           <Button variant="contained" onClick={submit}>
             Add Class
           </Button>
         </Stack>
+      </Paper>
+
+      <Paper sx={{ p: 2 }}>
+        <Typography variant="h6" component="h3" sx={{ mb: 1 }}>
+          Registered Classes
+        </Typography>
+        <List dense>
+          {classes.map((c) => (
+            <ListItem key={c.id} divider>
+              <ListItemText primary={c.topic} secondary={`${c.year}/${c.semester}`} />
+              <ListItemSecondaryAction>
+                <Button color="error" onClick={() => removeClass(c.id)}>
+                  Remove
+                </Button>
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))}
+        </List>
       </Paper>
 
       <Paper sx={{ p: 2 }}>
@@ -169,21 +229,32 @@ const ClassesPage = () => {
                     }
                   >
                     <MenuItem value="">-- select student --</MenuItem>
-                    {students.map((s) => (
+                    {availableStudents.map((s) => (
                       <MenuItem key={s.id} value={s.id}>
                         {s.name}
                       </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
-                <Button variant="contained" onClick={enroll}>
+                <Button
+                  variant="contained"
+                  onClick={enroll}
+                  disabled={!selectedStudentId || availableStudents.length === 0}
+                >
                   Enroll
                 </Button>
               </Stack>
 
               <List dense>
                 {roster.map((student) => (
-                  <ListItem key={student.id}>{student.name}</ListItem>
+                  <ListItem key={student.id} divider>
+                    <ListItemText primary={student.name} />
+                    <ListItemSecondaryAction>
+                      <Button color="error" onClick={() => unenroll(student.id)}>
+                        Remove
+                      </Button>
+                    </ListItemSecondaryAction>
+                  </ListItem>
                 ))}
               </List>
             </Box>

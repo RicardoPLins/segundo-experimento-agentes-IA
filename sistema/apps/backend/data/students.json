@@ -6,5 +6,13 @@
     "email": "ricardo@email.com",
     "createdAt": "2026-04-15T03:46:55.203Z",
     "updatedAt": "2026-04-15T03:46:55.203Z"
+  },
+  {
+    "id": "b33f48ea-67f3-403e-858f-86c46ba254f7",
+    "name": "ricadin",
+    "cpf": "7",
+    "email": "rpl3@cin.ufpe.br",
+    "createdAt": "2026-04-15T18:52:46.010Z",
+    "updatedAt": "2026-04-15T18:52:46.010Z"
   }
 ]
