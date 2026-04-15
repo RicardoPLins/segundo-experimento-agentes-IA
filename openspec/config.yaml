@@ -1,5 +1,25 @@
 schema: spec-driven
 
+context: |
+	Project: Web Scholar
+	Goal: Manage students, classes/enrollments, evaluations (metas), and daily email digest notifications.
+	Frontend MUST be React + TypeScript (SPA).
+	Backend MUST be Node.js + TypeScript (REST API).
+	Persistence MUST be JSON (atomic writes; assume single backend instance).
+	Testing MUST be test-driven using Cucumber (Gherkin) acceptance tests as the primary definition of done.
+
+	Domain:
+	- Student: { id, name, cpf, email }
+	- Class: { id, topic, year, semester }
+	- Enrollment: unique (classId, studentId)
+	- Evaluation: per (classId, studentId, meta) where meta ∈ {requisitos,testes,backend,frontend,security} and status ∈ {MANA,MPA,MA}
+	- Email digest: at most one email per student per calendar day containing all evaluation changes that day (across classes)
+
+	Writing rules:
+	- Requirements MUST use RFC 2119 keywords: MUST / MUST NOT / SHOULD / MAY.
+	- Scenarios MUST be written using WHEN/THEN/AND.
+	- Invariants MUST use IDs like INV-<DOM>-<NN> (suggested DOM: DAT, EVL, EML, TST, CFG, ARC).
+
 # Project context (optional)
 # This is shown to AI when creating artifacts.
 # Add your tech stack, conventions, style guides, domain knowledge, etc.
@@ -18,3 +38,18 @@ schema: spec-driven
 #       - Always include a "Non-goals" section
 #     tasks:
 #       - Break tasks into chunks of max 2 hours
+
+rules:
+	proposal:
+		- Keep proposals focused: Why / What Changes / Capabilities / Impact.
+		- New capabilities MUST be listed and match spec folder names.
+	spec:
+		- Every spec MUST include at least one Invariant and at least 2 Scenarios.
+		- Specs MUST define Errors and Side-Effects when applicable.
+		- Scenarios MUST be directly translatable into Gherkin steps.
+	design:
+		- Design MUST include Open Questions if any ambiguity remains.
+		- Design MUST include a Spec -> Implementation -> Test mapping table.
+	tasks:
+		- Tasks MUST end with a Verification section.
+		- Verification MUST include running Cucumber acceptance tests.
