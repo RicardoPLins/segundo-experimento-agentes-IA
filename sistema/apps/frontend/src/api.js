@@ -16,7 +16,14 @@ export const api = {
         if (!response.ok) {
             throw new Error(await response.text());
         }
-        return response.json();
+        if (response.status === 204) {
+            return undefined;
+        }
+        const text = await response.text();
+        if (!text) {
+            return undefined;
+        }
+        return JSON.parse(text);
     },
     async put(path, body) {
         const response = await fetch(`${baseUrl}${path}`, {
@@ -27,7 +34,14 @@ export const api = {
         if (!response.ok) {
             throw new Error(await response.text());
         }
-        return response.json();
+        if (response.status === 204) {
+            return undefined;
+        }
+        const text = await response.text();
+        if (!text) {
+            return undefined;
+        }
+        return JSON.parse(text);
     },
     async del(path) {
         const response = await fetch(`${baseUrl}${path}`, {

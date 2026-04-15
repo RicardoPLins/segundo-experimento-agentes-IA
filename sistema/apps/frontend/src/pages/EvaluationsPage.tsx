@@ -33,7 +33,7 @@ interface EvaluationRow {
 }
 
 const metaKeys = ["requisitos", "testes", "backend", "frontend", "security"] as const;
-const statusValues = ["MANA", "MPA", "MA"] as const;
+const statusValues = ["NONE", "MPA", "MA"] as const;
 
 const EvaluationsPage = () => {
   const [classes, setClasses] = useState<ClassEntity[]>([]);
@@ -41,6 +41,12 @@ const EvaluationsPage = () => {
   const [rows, setRows] = useState<EvaluationRow[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [digestInfo, setDigestInfo] = useState<string | null>(null);
+
+  const allEvaluated =
+    rows.length > 0 &&
+    rows.every((row) =>
+      metaKeys.every((meta) => row.metas[meta] && row.metas[meta] !== "NONE")
+    );
 
   const loadClasses = async () => {
     const data = await api.get<ClassEntity[]>("/classes");
@@ -125,7 +131,7 @@ const EvaluationsPage = () => {
               ))}
             </Select>
           </FormControl>
-          <Button variant="contained" onClick={sendDigest}>
+          <Button variant="contained" onClick={sendDigest} disabled={!allEvaluated}>
             Send Daily Digest
           </Button>
         </Stack>
@@ -157,7 +163,7 @@ const EvaluationsPage = () => {
                         >
                           {statusValues.map((status) => (
                             <MenuItem key={status} value={status}>
-                              {status}
+                              {status === "NONE" ? "None" : status}
                             </MenuItem>
                           ))}
                         </Select>

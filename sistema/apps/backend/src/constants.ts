@@ -6,7 +6,7 @@ export const META_KEYS = [
   "security"
 ] as const;
 
-export const STATUS_VALUES = ["MANA", "MPA", "MA"] as const;
+export const STATUS_VALUES = ["NONE", "MPA", "MA"] as const;
 
 export const DEFAULT_TIMEZONE = "America/Recife";
 

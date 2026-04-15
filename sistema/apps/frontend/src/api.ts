@@ -17,7 +17,14 @@ export const api = {
     if (!response.ok) {
       throw new Error(await response.text());
     }
-    return response.json() as Promise<T>;
+    if (response.status === 204) {
+      return undefined as T;
+    }
+    const text = await response.text();
+    if (!text) {
+      return undefined as T;
+    }
+    return JSON.parse(text) as T;
   },
   async put<T>(path: string, body: unknown): Promise<T> {
     const response = await fetch(`${baseUrl}${path}`, {
@@ -28,7 +35,14 @@ export const api = {
     if (!response.ok) {
       throw new Error(await response.text());
     }
-    return response.json() as Promise<T>;
+    if (response.status === 204) {
+      return undefined as T;
+    }
+    const text = await response.text();
+    if (!text) {
+      return undefined as T;
+    }
+    return JSON.parse(text) as T;
   },
   async del(path: string): Promise<void> {
     const response = await fetch(`${baseUrl}${path}`, {

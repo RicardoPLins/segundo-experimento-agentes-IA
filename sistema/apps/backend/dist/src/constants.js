@@ -5,5 +5,5 @@ export const META_KEYS = [
     "frontend",
     "security"
 ];
-export const STATUS_VALUES = ["MANA", "MPA", "MA"];
+export const STATUS_VALUES = ["NONE", "MPA", "MA"];
 export const DEFAULT_TIMEZONE = "America/Recife";

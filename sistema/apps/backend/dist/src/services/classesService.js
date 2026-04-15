@@ -1,8 +1,10 @@
 import { v4 as uuid } from "uuid";
 import { DateTime } from "luxon";
-import { ConflictError, NotFoundError, ValidationError } from "../errors.js";
+import { NotFoundError, ValidationError } from "../errors.js";
 import { classesRepo } from "../repositories/classesRepo.js";
 import { enrollmentsRepo } from "../repositories/enrollmentsRepo.js";
+import { evaluationsRepo } from "../repositories/evaluationsRepo.js";
+import { outboxRepo } from "../repositories/outboxRepo.js";
 const now = () => DateTime.utc().toISO();
 export const classesService = {
     async list() {
@@ -67,10 +69,14 @@ export const classesService = {
         if (!entity) {
             throw new NotFoundError("class not found");
         }
-        const enrollments = await enrollmentsRepo.list();
-        if (enrollments.some((e) => e.classId === id)) {
-            throw new ConflictError("class has enrollments");
-        }
+        const [enrollments, evaluations, events] = await Promise.all([
+            enrollmentsRepo.list(),
+            evaluationsRepo.list(),
+            outboxRepo.list()
+        ]);
+        await enrollmentsRepo.saveAll(enrollments.filter((e) => e.classId !== id));
+        await evaluationsRepo.saveAll(evaluations.filter((e) => e.classId !== id));
+        await outboxRepo.saveAll(events.filter((e) => e.classId !== id));
         await classesRepo.saveAll(classes.filter((c) => c.id !== id));
     }
 };

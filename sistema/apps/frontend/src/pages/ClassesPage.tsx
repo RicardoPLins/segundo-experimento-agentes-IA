@@ -14,6 +14,11 @@ import {
   Select,
   type SelectChangeEvent,
   Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
   TextField,
   Typography
 } from "@mui/material";
@@ -33,11 +38,20 @@ interface Student {
   email: string;
 }
 
+interface EvaluationRow {
+  studentId: string;
+  studentName: string;
+  metas: Record<string, string>;
+}
+
+const metaKeys = ["requisitos", "testes", "backend", "frontend", "security"] as const;
+
 const ClassesPage = () => {
   const [classes, setClasses] = useState<ClassEntity[]>([]);
   const [students, setStudents] = useState<Student[]>([]);
   const [selectedClassId, setSelectedClassId] = useState<string>("");
   const [roster, setRoster] = useState<Student[]>([]);
+  const [evaluationRows, setEvaluationRows] = useState<EvaluationRow[]>([]);
   const [form, setForm] = useState({ topic: "", year: 2026, semester: 1 });
   const [selectedStudentId, setSelectedStudentId] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
@@ -60,10 +74,15 @@ const ClassesPage = () => {
   const loadRoster = async (classId: string) => {
     if (!classId) {
       setRoster([]);
+      setEvaluationRows([]);
       return;
     }
-    const data = await api.get<Student[]>(`/classes/${classId}/students`);
-    setRoster(data);
+    const [rosterData, evaluationsData] = await Promise.all([
+      api.get<Student[]>(`/classes/${classId}/students`),
+      api.get<{ rows: EvaluationRow[] }>(`/classes/${classId}/evaluations`)
+    ]);
+    setRoster(rosterData);
+    setEvaluationRows(evaluationsData.rows);
   };
 
   useEffect(() => {
@@ -257,6 +276,32 @@ const ClassesPage = () => {
                   </ListItem>
                 ))}
               </List>
+
+              <Typography variant="h6" component="h4" sx={{ mt: 3, mb: 1 }}>
+                Evaluations
+              </Typography>
+              <Table size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Student</TableCell>
+                    {metaKeys.map((meta) => (
+                      <TableCell key={meta}>{meta}</TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {evaluationRows.map((row) => (
+                    <TableRow key={row.studentId}>
+                      <TableCell>{row.studentName}</TableCell>
+                      {metaKeys.map((meta) => (
+                        <TableCell key={meta}>
+                          {row.metas[meta] === "NONE" ? "None" : row.metas[meta]}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
             </Box>
           )}
         </Stack>
