@@ -1,4 +1,20 @@
-import { useEffect, useState, type ChangeEvent } from "react";
+import { useEffect, useState } from "react";
+import {
+  Alert,
+  Box,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  type SelectChangeEvent,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Typography
+} from "@mui/material";
 import { api } from "../api";
 
 interface ClassEntity {
@@ -59,64 +75,72 @@ const EvaluationsPage = () => {
   };
 
   return (
-    <section>
-      <h2>Evaluations</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <div style={{ marginBottom: "16px" }}>
-        <label>
-          Select class:
-          <select
+    <Box component="section" sx={{ display: "grid", gap: 2 }}>
+      <Typography variant="h4" component="h2">
+        Evaluations
+      </Typography>
+
+      {error && <Alert severity="error">{error}</Alert>}
+
+      <Paper sx={{ p: 2 }}>
+        <FormControl fullWidth>
+          <InputLabel id="class-select-label">Select class</InputLabel>
+          <Select
+            labelId="class-select-label"
             value={selectedClassId}
-            onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-              setSelectedClassId(e.target.value)
-            }
+            label="Select class"
+            onChange={(e: SelectChangeEvent) => setSelectedClassId(String(e.target.value))}
           >
-            <option value="">-- select --</option>
+            <MenuItem value="">-- select --</MenuItem>
             {classes.map((c) => (
-              <option key={c.id} value={c.id}>
+              <MenuItem key={c.id} value={c.id}>
                 {c.topic} ({c.year}/{c.semester})
-              </option>
+              </MenuItem>
             ))}
-          </select>
-        </label>
-      </div>
+          </Select>
+        </FormControl>
+      </Paper>
 
       {selectedClassId && (
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
-          <thead>
-            <tr>
-              <th>Student</th>
-              {metaKeys.map((meta) => (
-                <th key={meta}>{meta}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row) => (
-              <tr key={row.studentId}>
-                <td>{row.studentName}</td>
+        <Paper sx={{ p: 2 }}>
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell>Student</TableCell>
                 {metaKeys.map((meta) => (
-                  <td key={meta}>
-                    <select
-                      value={row.metas[meta]}
-                      onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                        update(row.studentId, meta, e.target.value)
-                      }
-                    >
-                      {statusValues.map((status) => (
-                        <option key={status} value={status}>
-                          {status}
-                        </option>
-                      ))}
-                    </select>
-                  </td>
+                  <TableCell key={meta}>{meta}</TableCell>
                 ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <TableRow key={row.studentId}>
+                  <TableCell>{row.studentName}</TableCell>
+                  {metaKeys.map((meta) => (
+                    <TableCell key={meta}>
+                      <FormControl size="small" fullWidth>
+                        <Select
+                          value={row.metas[meta]}
+                          onChange={(e: SelectChangeEvent) =>
+                            update(row.studentId, meta, String(e.target.value))
+                          }
+                        >
+                          {statusValues.map((status) => (
+                            <MenuItem key={status} value={status}>
+                              {status}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Paper>
       )}
-    </section>
+    </Box>
   );
 };
 

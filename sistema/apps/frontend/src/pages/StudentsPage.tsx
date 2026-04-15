@@ -1,4 +1,18 @@
 import { useEffect, useState, type ChangeEvent } from "react";
+import {
+  Alert,
+  Box,
+  Button,
+  Paper,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  TextField,
+  Typography
+} from "@mui/material";
 import { api } from "../api";
 
 interface Student {
@@ -44,57 +58,69 @@ const StudentsPage = () => {
   };
 
   return (
-    <section>
-      <h2>Students</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <div style={{ display: "grid", gap: "8px", maxWidth: "400px" }}>
-        <input
-          placeholder="Name"
-          value={form.name}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setForm({ ...form, name: e.target.value })
-          }
-        />
-        <input
-          placeholder="CPF"
-          value={form.cpf}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setForm({ ...form, cpf: e.target.value })
-          }
-        />
-        <input
-          placeholder="Email"
-          value={form.email}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setForm({ ...form, email: e.target.value })
-          }
-        />
-        <button onClick={submit}>Add Student</button>
-      </div>
+    <Box component="section" sx={{ display: "grid", gap: 2 }}>
+      <Typography variant="h4" component="h2">
+        Students
+      </Typography>
 
-      <table style={{ marginTop: "20px", width: "100%", borderCollapse: "collapse" }}>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>CPF</th>
-            <th>Email</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {students.map((student) => (
-            <tr key={student.id}>
-              <td>{student.name}</td>
-              <td>{student.cpf}</td>
-              <td>{student.email}</td>
-              <td>
-                <button onClick={() => remove(student.id)}>Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </section>
+      {error && <Alert severity="error">{error}</Alert>}
+
+      <Paper sx={{ p: 2 }}>
+        <Stack spacing={2} sx={{ maxWidth: 480 }}>
+          <TextField
+            label="Name"
+            value={form.name}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setForm({ ...form, name: e.target.value })
+            }
+          />
+          <TextField
+            label="CPF"
+            value={form.cpf}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setForm({ ...form, cpf: e.target.value })
+            }
+          />
+          <TextField
+            label="Email"
+            value={form.email}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setForm({ ...form, email: e.target.value })
+            }
+          />
+          <Button variant="contained" onClick={submit}>
+            Add Student
+          </Button>
+        </Stack>
+      </Paper>
+
+      <Paper sx={{ p: 2 }}>
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>CPF</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell align="right">Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {students.map((student) => (
+              <TableRow key={student.id}>
+                <TableCell>{student.name}</TableCell>
+                <TableCell>{student.cpf}</TableCell>
+                <TableCell>{student.email}</TableCell>
+                <TableCell align="right">
+                  <Button color="error" onClick={() => remove(student.id)}>
+                    Delete
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Paper>
+    </Box>
   );
 };
 

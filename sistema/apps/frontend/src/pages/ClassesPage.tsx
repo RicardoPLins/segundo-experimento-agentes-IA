@@ -1,4 +1,20 @@
 import { useEffect, useState, type ChangeEvent } from "react";
+import {
+  Alert,
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  List,
+  ListItem,
+  MenuItem,
+  Paper,
+  Select,
+  type SelectChangeEvent,
+  Stack,
+  TextField,
+  Typography
+} from "@mui/material";
 import { api } from "../api";
 
 interface ClassEntity {
@@ -75,82 +91,106 @@ const ClassesPage = () => {
   };
 
   return (
-    <section>
-      <h2>Classes</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <div style={{ display: "grid", gap: "8px", maxWidth: "400px" }}>
-        <input
-          placeholder="Topic"
-          value={form.topic}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setForm({ ...form, topic: e.target.value })
-          }
-        />
-        <input
-          type="number"
-          placeholder="Year"
-          value={form.year}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setForm({ ...form, year: Number(e.target.value) })
-          }
-        />
-        <input
-          type="number"
-          placeholder="Semester"
-          value={form.semester}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setForm({ ...form, semester: Number(e.target.value) })
-          }
-        />
-        <button onClick={submit}>Add Class</button>
-      </div>
+    <Box component="section" sx={{ display: "grid", gap: 2 }}>
+      <Typography variant="h4" component="h2">
+        Classes
+      </Typography>
 
-      <div style={{ marginTop: "20px" }}>
-        <label>
-          Select class:
-          <select
-            value={selectedClassId}
-            onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-              setSelectedClassId(e.target.value)
+      {error && <Alert severity="error">{error}</Alert>}
+
+      <Paper sx={{ p: 2 }}>
+        <Stack spacing={2} sx={{ maxWidth: 480 }}>
+          <TextField
+            label="Topic"
+            value={form.topic}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setForm({ ...form, topic: e.target.value })
             }
-          >
-            <option value="">-- select --</option>
-            {classes.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.topic} ({c.year}/{c.semester})
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
+          />
+          <TextField
+            type="number"
+            label="Year"
+            value={form.year}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setForm({ ...form, year: Number(e.target.value) })
+            }
+          />
+          <TextField
+            type="number"
+            label="Semester"
+            value={form.semester}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setForm({ ...form, semester: Number(e.target.value) })
+            }
+          />
+          <Button variant="contained" onClick={submit}>
+            Add Class
+          </Button>
+        </Stack>
+      </Paper>
 
-      {selectedClassId && (
-        <div style={{ marginTop: "20px" }}>
-          <h3>Enrollments</h3>
-          <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-            <select
-              value={selectedStudentId}
-              onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                setSelectedStudentId(e.target.value)
-              }
+      <Paper sx={{ p: 2 }}>
+        <Stack spacing={2}>
+          <FormControl fullWidth>
+            <InputLabel id="class-select-label">Select class</InputLabel>
+            <Select
+              labelId="class-select-label"
+              value={selectedClassId}
+              label="Select class"
+              onChange={(e: SelectChangeEvent) => setSelectedClassId(String(e.target.value))}
             >
-              <option value="">-- select student --</option>
-              {students.map((s) => (
-                <option key={s.id} value={s.id}>
-                  {s.name}
-                </option>
+              <MenuItem value="">-- select --</MenuItem>
+              {classes.map((c) => (
+                <MenuItem key={c.id} value={c.id}>
+                  {c.topic} ({c.year}/{c.semester})
+                </MenuItem>
               ))}
-            </select>
-            <button onClick={enroll}>Enroll</button>
-          </div>
-          <ul>
-            {roster.map((student) => (
-              <li key={student.id}>{student.name}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </section>
+            </Select>
+          </FormControl>
+
+          {selectedClassId && (
+            <Box>
+              <Typography variant="h6" component="h3" sx={{ mb: 1 }}>
+                Enrollments
+              </Typography>
+              <Stack
+                direction={{ xs: "column", sm: "row" }}
+                spacing={2}
+                sx={{ alignItems: "center" }}
+              >
+                <FormControl fullWidth>
+                  <InputLabel id="student-select-label">Select student</InputLabel>
+                  <Select
+                    labelId="student-select-label"
+                    value={selectedStudentId}
+                    label="Select student"
+                    onChange={(e: SelectChangeEvent) =>
+                      setSelectedStudentId(String(e.target.value))
+                    }
+                  >
+                    <MenuItem value="">-- select student --</MenuItem>
+                    {students.map((s) => (
+                      <MenuItem key={s.id} value={s.id}>
+                        {s.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <Button variant="contained" onClick={enroll}>
+                  Enroll
+                </Button>
+              </Stack>
+
+              <List dense>
+                {roster.map((student) => (
+                  <ListItem key={student.id}>{student.name}</ListItem>
+                ))}
+              </List>
+            </Box>
+          )}
+        </Stack>
+      </Paper>
+    </Box>
   );
 };
 

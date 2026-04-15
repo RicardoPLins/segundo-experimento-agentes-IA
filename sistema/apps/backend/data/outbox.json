@@ -1,0 +1,32 @@
+[
+  {
+    "id": "3551367e-6fce-43ab-a9c7-9041df5ad9c9",
+    "studentId": "876aa0fb-8987-4b5d-aca3-13f623cce8f7",
+    "classId": "7ab79f05-a595-46d5-8456-79b839c86a84",
+    "meta": "requisitos",
+    "oldStatus": null,
+    "newStatus": "MPA",
+    "changedAt": "2026-04-15T14:15:28.492Z",
+    "sentAt": null
+  },
+  {
+    "id": "f1244f6f-8630-404b-a7cb-4ff213b2c82c",
+    "studentId": "876aa0fb-8987-4b5d-aca3-13f623cce8f7",
+    "classId": "7ab79f05-a595-46d5-8456-79b839c86a84",
+    "meta": "testes",
+    "oldStatus": null,
+    "newStatus": "MA",
+    "changedAt": "2026-04-15T14:15:30.378Z",
+    "sentAt": null
+  },
+  {
+    "id": "7fc63762-a681-41e9-9388-6b4c2d1539bf",
+    "studentId": "876aa0fb-8987-4b5d-aca3-13f623cce8f7",
+    "classId": "7ab79f05-a595-46d5-8456-79b839c86a84",
+    "meta": "security",
+    "oldStatus": null,
+    "newStatus": "MPA",
+    "changedAt": "2026-04-15T14:15:34.484Z",
+    "sentAt": null
+  }
+]
