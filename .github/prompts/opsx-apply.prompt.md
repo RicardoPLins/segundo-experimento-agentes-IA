@@ -4,6 +4,15 @@ description: Implement tasks from an OpenSpec change (Experimental)
 
 Implement tasks from an OpenSpec change.
 
+This repository targets **Web Scholar** and prefers an outside-in loop:
+1) specs/scenarios → 2) Gherkin acceptance tests → 3) backend API → 4) frontend UI.
+
+Hard constraints for implementations here:
+- Frontend MUST be React + TypeScript.
+- Backend MUST be Node.js + TypeScript.
+- Persistence MUST be JSON with atomic writes.
+- Email digest MUST send at most one email per student per day (timezone-based).
+
 **Input**: Optionally specify a change name (e.g., `/opsx:apply add-auth`). If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
 
 **Steps**
@@ -49,6 +58,8 @@ Implement tasks from an OpenSpec change.
    - **spec-driven**: proposal, specs, design, tasks
    - Other schemas: follow the contextFiles from CLI output
 
+   Also read `AGENT.md` for repository rules and defaults.
+
 5. **Show current progress**
 
    Display:
@@ -61,6 +72,7 @@ Implement tasks from an OpenSpec change.
 
    For each pending task:
    - Show which task is being worked on
+   - Keep acceptance tests (Cucumber) as the source of truth; add/adjust scenarios/tests before changing implementation
    - Make the code changes required
    - Keep changes minimal and focused
    - Mark task complete in the tasks file: `- [ ]` → `- [x]`

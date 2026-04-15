@@ -11,6 +11,16 @@ metadata:
 
 Implement tasks from an OpenSpec change.
 
+**Repository context (Web Scholar)**
+- Target architecture: React + TypeScript frontend, Node.js + TypeScript backend
+- Persistence: JSON files (atomic writes)
+- Primary quality gate: Cucumber (Gherkin) acceptance tests
+
+Before implementing tasks, read:
+- `AGENT.md`
+- `openspec/config.yaml`
+- The change artifacts (proposal/specs/design/tasks)
+
 **Input**: Optionally specify a change name. If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
 
 **Steps**

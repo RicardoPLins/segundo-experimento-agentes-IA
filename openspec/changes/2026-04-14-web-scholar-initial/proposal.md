@@ -15,6 +15,12 @@ This change establishes the initial **spec-first baseline** for the system and d
 - Define invariants and error behaviors.
 - Define acceptance scenarios (WHEN/THEN/AND) suitable to be mirrored in Gherkin.
 
+Baseline decisions included:
+- Evaluations are **per class** (teacher selects a class to manage/view evaluations).
+- Default evaluation status for missing metas is `MANA`.
+- Deletion is blocked if enrollments exist (student/class).
+- Digest “per day” boundary uses timezone `America/Recife` by default (configurable).
+
 No production code is added by this change; this is a planning/specification baseline.
 
 ## Capabilities

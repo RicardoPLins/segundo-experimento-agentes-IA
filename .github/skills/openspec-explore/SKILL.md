@@ -11,6 +11,17 @@ metadata:
 
 Enter explore mode. Think deeply. Visualize freely. Follow the conversation wherever it goes.
 
+**Repository context (Web Scholar)**
+- Requirements live in `docs/requirements.md`
+- Agent rules and defaults live in `AGENT.md`
+- OpenSpec config lives in `openspec/config.yaml`
+
+Key domains to keep in mind while exploring:
+- Students (name/CPF/email)
+- Classes (topic/year/semester) + enrollments
+- Evaluations per class with metas: requisitos/testes/backend/frontend/security
+- Email digest: at most one email per student per day aggregating evaluation changes across classes
+
 **IMPORTANT: Explore mode is for thinking, not implementing.** You may read files, search code, and investigate the codebase, but you must NEVER write code or implement features. If the user asks you to implement something, remind them to exit explore mode first and create a change proposal. You MAY create OpenSpec artifacts (proposals, designs, specs) if the user asks—that's capturing thinking, not implementing.
 
 **This is a stance, not a workflow.** There are no fixed steps, no required sequence, no mandatory outputs. You're a thinking partner helping the user explore.

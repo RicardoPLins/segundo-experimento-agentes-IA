@@ -10,6 +10,27 @@ This repository is used to build **Web Scholar**, a web system for students/clas
   - API acceptance: `@cucumber/cucumber` + `supertest`
   - UI acceptance (smoke): Cucumber + Playwright
 
+## Domain Defaults (decisions for implementation)
+These decisions are made to remove ambiguity and keep momentum. If changed later, do it via OpenSpec proposal.
+
+- Evaluations are **per class**: keyed by `(classId, studentId, meta)`.
+- The evaluations management page MUST operate on a **selected class** (teacher picks a class, then sees the table for that class).
+- Default evaluation status for an enrolled student MUST be `MANA` for all metas.
+- Deletion policy (data integrity-first):
+  - A student with at least one enrollment MUST NOT be deletable (teacher must unenroll first).
+  - A class with at least one enrollment MUST NOT be deletable (teacher must unenroll all first).
+- Uniqueness:
+  - `cpf` MUST be unique across all students.
+  - `email` MUST be unique across all students.
+- Digest “per day” boundary uses timezone `America/Recife` (configurable), based on local calendar day.
+
+## Cucumber / Gherkin Conventions
+- Prefer **API acceptance tests** for business rules; keep UI suite as smoke.
+- Scenario wording must map to stable, reusable steps (avoid UI-specific phrasing in API features).
+- Use canonical meta keys in steps: `requisitos|testes|backend|frontend|security`.
+- Use canonical status values in steps: `MANA|MPA|MA`.
+- For digest tests, avoid real time: allow injecting “current time” via a clock abstraction or a test-only job trigger.
+
 ## Repository Layout (planned)
 - `apps/frontend/` — React app
 - `apps/backend/` — Node API
@@ -44,6 +65,11 @@ Rules like evaluation state transitions, digest aggregation, uniqueness constrai
 Non-trivial changes MUST include a **Verification** section in tasks and run at least:
 - backend: lint + typecheck + unit tests + cucumber API suite
 - frontend: lint + typecheck + build + cucumber UI smoke suite
+
+### R7 — Outside-in implementation order
+- Update OpenSpec + feature files first.
+- Make API acceptance tests pass next.
+- Add UI last.
 
 ## Agent “skills” guidance (how to work effectively here)
 - Start by updating OpenSpec artifacts and feature files (Gherkin).

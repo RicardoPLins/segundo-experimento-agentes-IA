@@ -40,7 +40,7 @@
   - Expose class evaluations table API
   - Expose update endpoint (single meta or batch update per student)
 - Frontend:
-  - `/evaluations` page (as specified) and/or per-class evaluation view (per decision)
+  - `/evaluations` page with **class selection**, showing the table for the selected class
   - class detail view shows evaluations section
 - Tests:
   - Cucumber API scenarios covering:

@@ -4,6 +4,12 @@ description: Propose a new change - create it and generate all artifacts in one 
 
 Propose a new change - create the change and generate all artifacts in one step.
 
+This repository targets **Web Scholar** (React TS frontend + Node TS backend + JSON persistence) and uses **Cucumber (Gherkin) acceptance tests** as the primary definition of done.
+Before writing artifacts, read:
+- `AGENT.md`
+- `docs/requirements.md`
+- `openspec/config.yaml`
+
 I'll create a change with artifacts:
 - proposal.md (what & why)
 - design.md (how)
@@ -14,6 +20,14 @@ When ready to implement, run /opsx:apply
 ---
 
 **Input**: The argument after `/opsx:propose` is the change name (kebab-case), OR a description of what the user wants to build.
+
+**Web Scholar capability names (preferred)**
+- `students`
+- `classes`
+- `evaluations`
+- `notifications-email-digest`
+
+If the user request touches these areas, ensure the proposal and specs reference the matching capability names.
 
 **Steps**
 

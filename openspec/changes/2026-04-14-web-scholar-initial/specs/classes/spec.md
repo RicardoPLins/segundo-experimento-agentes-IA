@@ -27,6 +27,8 @@ Classes MUST have topic description, year, and semester.
 ## Invariants
 
 - **INV-DAT-03**: Enrollment MUST be unique per `(classId, studentId)`.
+- **INV-CLS-01**: `semester` MUST be either `1` or `2`.
+- **INV-CLS-02**: A class with enrollments MUST NOT be deletable.
 
 ## ADDED Requirements
 
@@ -36,6 +38,35 @@ The system MUST allow a teacher to create a class with topic, year, and semester
 #### Scenario: Create a class successfully
 - **WHEN** the teacher creates class `{ topic: "Introdução à Programação", year: 2026, semester: 1 }`
 - **THEN** the system MUST persist the class and return a generated `id`
+
+### Requirement: List classes
+The system MUST allow listing classes for a dedicated classes page.
+
+#### Scenario: Classes list includes created class
+- **WHEN** class "Introdução à Programação" exists
+- **THEN** listing classes MUST include "Introdução à Programação" with year and semester
+
+### Requirement: Update class
+The system MUST allow updating an existing class.
+
+#### Scenario: Update class topic
+- **WHEN** class "Introdução à Programação" exists
+- **AND** the teacher updates its topic to "Programação 1"
+- **THEN** subsequent reads MUST return topic "Programação 1"
+
+### Requirement: Delete class
+The system MUST allow deleting an existing class that has no enrollments.
+
+#### Scenario: Delete empty class
+- **WHEN** class "Introdução à Programação" exists
+- **AND** the class has no enrolled students
+- **AND** the teacher deletes the class
+- **THEN** the class MUST no longer appear in the classes list
+
+#### Scenario: Reject deletion of class with enrollments
+- **WHEN** student "Ana" is enrolled in "Introdução à Programação"
+- **AND** the teacher attempts to delete class "Introdução à Programação"
+- **THEN** the system MUST reject the deletion with `ConflictError`
 
 ### Requirement: Enroll student
 The system MUST allow enrolling an existing student into an existing class.

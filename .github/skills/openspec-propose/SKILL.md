@@ -11,6 +11,22 @@ metadata:
 
 Propose a new change - create the change and generate all artifacts in one step.
 
+**Repository context (Web Scholar)**
+- Target architecture: React + TypeScript frontend, Node.js + TypeScript backend
+- Persistence: JSON files (atomic writes)
+- Quality gate: Cucumber (Gherkin) acceptance tests are the primary definition of done
+
+Before generating artifacts, read:
+- `AGENT.md`
+- `docs/requirements.md`
+- `openspec/config.yaml`
+
+Preferred capability names:
+- `students`
+- `classes`
+- `evaluations`
+- `notifications-email-digest`
+
 I'll create a change with artifacts:
 - proposal.md (what & why)
 - design.md (how)

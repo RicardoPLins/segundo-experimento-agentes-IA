@@ -15,6 +15,12 @@ context: |
 	- Evaluation: per (classId, studentId, meta) where meta ∈ {requisitos,testes,backend,frontend,security} and status ∈ {MANA,MPA,MA}
 	- Email digest: at most one email per student per calendar day containing all evaluation changes that day (across classes)
 
+	Defaults/Policies:
+	- Student cpf and email are globally unique.
+	- Default evaluation status for missing metas is MANA.
+	- Deletion is blocked if enrollments exist (student/class).
+	- Digest day boundary timezone defaults to America/Recife (configurable).
+
 	Writing rules:
 	- Requirements MUST use RFC 2119 keywords: MUST / MUST NOT / SHOULD / MAY.
 	- Scenarios MUST be written using WHEN/THEN/AND.

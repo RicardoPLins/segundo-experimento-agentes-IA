@@ -11,6 +11,10 @@ metadata:
 
 Archive a completed change in the experimental workflow.
 
+**Repository context (Web Scholar)**
+- Prefer archiving only after Cucumber acceptance tests and verification tasks are complete.
+- Ensure delta specs under `openspec/changes/<name>/specs/` are either synced into `openspec/specs/` (if used) or intentionally left as change-local documentation.
+
 **Input**: Optionally specify a change name. If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
 
 **Steps**

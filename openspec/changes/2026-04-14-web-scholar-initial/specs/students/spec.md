@@ -30,6 +30,8 @@ This capability underpins classes (enrollments) and evaluation tables.
 
 - **INV-DAT-01**: Student records MUST be persisted using atomic JSON writes (write temp → rename).
 - **INV-DAT-02**: A student MUST have non-empty `name`, `cpf`, and `email`.
+- **INV-STD-01**: `cpf` MUST be unique across all students.
+- **INV-STD-02**: `email` MUST be unique across all students.
 
 ## ADDED Requirements
 
@@ -40,6 +42,16 @@ The system MUST allow a teacher to create a student with `name`, `cpf`, and `ema
 - **WHEN** the teacher creates student `{ name: "Ana", cpf: "111.222.333-44", email: "ana@example.com" }`
 - **THEN** the system MUST persist the student and return a generated `id`
 - **AND** the student MUST appear in the students list
+
+#### Scenario: Reject duplicate CPF
+- **WHEN** the teacher creates student `{ name: "Ana", cpf: "111.222.333-44", email: "ana@example.com" }`
+- **AND** the teacher creates student `{ name: "Bruno", cpf: "111.222.333-44", email: "bruno@example.com" }`
+- **THEN** the system MUST reject the second creation with `ConflictError`
+
+#### Scenario: Reject duplicate email
+- **WHEN** the teacher creates student `{ name: "Ana", cpf: "111.222.333-44", email: "ana@example.com" }`
+- **AND** the teacher creates student `{ name: "Bruno", cpf: "555.666.777-88", email: "ana@example.com" }`
+- **THEN** the system MUST reject the second creation with `ConflictError`
 
 ### Requirement: List students
 The system MUST provide a students list suitable for rendering a dedicated students page.
@@ -62,3 +74,8 @@ The system MUST allow deleting an existing student.
 #### Scenario: Delete a student
 - **WHEN** the teacher deletes student "Ana"
 - **THEN** the student MUST no longer appear in the students list
+
+#### Scenario: Reject deletion of enrolled student
+- **WHEN** student "Ana" is enrolled in at least one class
+- **AND** the teacher attempts to delete "Ana"
+- **THEN** the system MUST reject the deletion with `ConflictError`

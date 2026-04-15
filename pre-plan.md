@@ -39,14 +39,16 @@ Development MUST be **test-driven** with **Cucumber (Gherkin) acceptance tests**
 - “One email per day” means **per student per calendar day** in a single configured timezone.
 - JSON persistence runs in a **single backend process** (no multi-instance writes).
 
-## 3) Open Questions (must be resolved early)
-1. Does `/evaluations` aggregate evaluations across **all classes** or show evaluations for a selected class?
-2. Are `CPF` and `email` unique? Are they editable?
-3. What happens on delete?
-   - Deleting a student who is enrolled in classes
-   - Deleting a class with enrollments/evaluations
-4. What is the email delivery mechanism for dev (SMTP, local mail catcher, or console)?
-5. Should missing evaluations default to `MANA` or be explicitly unset?
+## 3) Decisions (resolved before implementation)
+1. The evaluations management page operates on a **selected class** (not a cross-class aggregate).
+2. `CPF` MUST be unique across students; `email` MUST be unique across students.
+3. Deletion policy:
+  - Deleting a student with enrollments MUST be rejected (teacher must unenroll first).
+  - Deleting a class with enrollments MUST be rejected.
+4. Missing evaluations default to `MANA` in table views.
+
+## 4) Open Questions (remaining)
+1. What is the email delivery mechanism for dev (SMTP, local mail catcher, or console)?
 
 ## 4) Architecture Direction (initial)
 A small **monorepo** with two apps:

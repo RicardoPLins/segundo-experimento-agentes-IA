@@ -8,8 +8,12 @@ Constraints:
 - Persistence MUST use JSON.
 - Development MUST be driven by Cucumber (Gherkin) acceptance tests.
 
-Key ambiguity to resolve early:
-- Whether the evaluations page aggregates across all classes or is filtered by class.
+Resolved decisions (to remove ambiguity before implementation):
+- Evaluations are **per class** and the evaluations management page operates on a **selected class**.
+- Default evaluation status for an enrolled student is `MANA` for all metas.
+- Student deletion is blocked if the student has enrollments.
+- Class deletion is blocked if the class has enrollments.
+- Digest “per day” boundary uses timezone `America/Recife` by default (configurable).
 
 ## Architecture
 
@@ -61,9 +65,18 @@ Key ambiguity to resolve early:
    - Meta set is fixed: `requisitos`, `testes`, `backend`, `frontend`, `security`.
    - Status set is fixed: `MANA | MPA | MA`.
 
+1.1 **Defaults**
+   - For an enrolled student, metas with no explicit evaluation MUST default to `MANA` in table views.
+
+1.2 **Deletion policy**
+   - Deleting a student/class with enrollments is rejected with `ConflictError`.
+
 2. **Email digest approach**
    - Use an outbox JSON log of evaluation-change events.
    - A daily job groups per student and sends one digest.
+
+2.1 **Digest day boundary**
+   - “Calendar day” is computed in a configured timezone (default: `America/Recife`).
 
 3. **Testing strategy**
    - Most behavior is validated through API-level Cucumber tests (fast, deterministic).
@@ -128,6 +141,4 @@ Key ambiguity to resolve early:
 
 ## Open Questions
 
-- Does `/evaluations` represent a global view (across all classes) or require a class filter?
-- Should `CPF` and `email` be unique? If yes, uniqueness scope is global.
-- What is the system timezone used for “per day” digest grouping?
+- (none for baseline; future changes should be captured via proposal)
