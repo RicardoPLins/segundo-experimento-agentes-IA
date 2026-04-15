@@ -1,9 +1,9 @@
-import path from "path";
 import { JsonStore } from "./jsonStore.js";
+import { dataFile } from "./dataPaths.js";
 import type { ClassEntity } from "../types.js";
 
 const store = new JsonStore<ClassEntity[]>(
-  path.resolve("apps/backend/data/classes.json"),
+  () => dataFile("classes.json"),
   []
 );
 

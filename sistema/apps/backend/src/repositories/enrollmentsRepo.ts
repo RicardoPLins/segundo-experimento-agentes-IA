@@ -1,9 +1,9 @@
-import path from "path";
 import { JsonStore } from "./jsonStore.js";
+import { dataFile } from "./dataPaths.js";
 import type { Enrollment } from "../types.js";
 
 const store = new JsonStore<Enrollment[]>(
-  path.resolve("apps/backend/data/enrollments.json"),
+  () => dataFile("enrollments.json"),
   []
 );
 
