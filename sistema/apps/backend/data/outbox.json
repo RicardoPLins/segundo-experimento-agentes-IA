@@ -57,7 +57,7 @@
     "oldStatus": null,
     "newStatus": "MANA",
     "changedAt": "2026-04-21T01:31:28.230Z",
-    "sentAt": null
+    "sentAt": "2026-04-21T13:46:28.723Z"
   },
   {
     "id": "18d09bcd-8959-4af5-9605-6832e9c4a677",
@@ -67,7 +67,7 @@
     "oldStatus": null,
     "newStatus": "MPA",
     "changedAt": "2026-04-21T01:31:29.612Z",
-    "sentAt": null
+    "sentAt": "2026-04-21T13:46:28.723Z"
   },
   {
     "id": "be51ac73-0f4c-4b87-9200-931e57559aab",
@@ -77,7 +77,7 @@
     "oldStatus": null,
     "newStatus": "MA",
     "changedAt": "2026-04-21T01:31:30.883Z",
-    "sentAt": null
+    "sentAt": "2026-04-21T13:46:28.723Z"
   },
   {
     "id": "03f36d25-7f2d-43ed-b559-4149bcf08f0a",
@@ -87,7 +87,7 @@
     "oldStatus": null,
     "newStatus": "MA",
     "changedAt": "2026-04-21T01:31:32.265Z",
-    "sentAt": null
+    "sentAt": "2026-04-21T13:46:28.723Z"
   },
   {
     "id": "3c30c759-e418-48e6-b712-8a2ecbed7113",
@@ -97,7 +97,7 @@
     "oldStatus": null,
     "newStatus": "MA",
     "changedAt": "2026-04-21T01:31:33.590Z",
-    "sentAt": null
+    "sentAt": "2026-04-21T13:46:28.723Z"
   },
   {
     "id": "855c76cf-be6e-4ab5-8ec7-e848aad40dda",
@@ -107,7 +107,7 @@
     "oldStatus": null,
     "newStatus": "MANA",
     "changedAt": "2026-04-21T01:47:55.335Z",
-    "sentAt": null
+    "sentAt": "2026-04-21T13:46:28.723Z"
   },
   {
     "id": "0b8aa2d0-84f3-4b25-91e8-a84e0664b41a",
@@ -117,7 +117,7 @@
     "oldStatus": null,
     "newStatus": "MA",
     "changedAt": "2026-04-21T01:47:57.144Z",
-    "sentAt": null
+    "sentAt": "2026-04-21T13:46:28.723Z"
   },
   {
     "id": "415bb2e7-7ab7-4126-aa61-72de660a2aea",
@@ -127,7 +127,7 @@
     "oldStatus": null,
     "newStatus": "MA",
     "changedAt": "2026-04-21T01:47:58.737Z",
-    "sentAt": null
+    "sentAt": "2026-04-21T13:46:28.723Z"
   },
   {
     "id": "6777e401-4ca2-4a00-8f90-3095715dfc35",
@@ -137,7 +137,7 @@
     "oldStatus": null,
     "newStatus": "MPA",
     "changedAt": "2026-04-21T01:48:00.363Z",
-    "sentAt": null
+    "sentAt": "2026-04-21T13:46:28.723Z"
   },
   {
     "id": "933d9bf7-de72-497d-a896-fde41c2a975e",
@@ -147,7 +147,7 @@
     "oldStatus": null,
     "newStatus": "MA",
     "changedAt": "2026-04-21T01:48:01.723Z",
-    "sentAt": null
+    "sentAt": "2026-04-21T13:46:28.723Z"
   },
   {
     "id": "495bf6c0-00cf-448f-a5f5-b6074e24d1a4",
@@ -157,7 +157,7 @@
     "oldStatus": null,
     "newStatus": "MPA",
     "changedAt": "2026-04-21T02:25:42.653Z",
-    "sentAt": null
+    "sentAt": "2026-04-21T13:46:28.723Z"
   },
   {
     "id": "76409b46-b394-4f7c-818e-5d57e6784a86",
@@ -167,7 +167,7 @@
     "oldStatus": null,
     "newStatus": "MPA",
     "changedAt": "2026-04-21T02:25:42.657Z",
-    "sentAt": null
+    "sentAt": "2026-04-21T13:46:28.723Z"
   },
   {
     "id": "9ed4861d-3f29-4301-8c37-5ca146798ecd",
@@ -177,7 +177,7 @@
     "oldStatus": null,
     "newStatus": "MPA",
     "changedAt": "2026-04-21T02:25:42.659Z",
-    "sentAt": null
+    "sentAt": "2026-04-21T13:46:28.723Z"
   },
   {
     "id": "634045d0-7af9-4182-b862-369f4f348433",
@@ -187,7 +187,7 @@
     "oldStatus": null,
     "newStatus": "MPA",
     "changedAt": "2026-04-21T02:25:42.661Z",
-    "sentAt": null
+    "sentAt": "2026-04-21T13:46:28.723Z"
   },
   {
     "id": "e20a7368-376a-471d-b24c-8363e8911552",
@@ -197,7 +197,7 @@
     "oldStatus": null,
     "newStatus": "MPA",
     "changedAt": "2026-04-21T02:25:42.663Z",
-    "sentAt": null
+    "sentAt": "2026-04-21T13:46:28.723Z"
   },
   {
     "id": "f44b0a00-3914-4c78-abd4-4196cf4c9f82",
@@ -207,7 +207,7 @@
     "oldStatus": "MA",
     "newStatus": "MPA",
     "changedAt": "2026-04-21T13:06:40.094Z",
-    "sentAt": null
+    "sentAt": "2026-04-21T13:46:28.723Z"
   },
   {
     "id": "22aeae4b-de15-44ed-8268-31db6614fdfa",
@@ -217,6 +217,6 @@
     "oldStatus": "MANA",
     "newStatus": "MA",
     "changedAt": "2026-04-21T13:06:44.628Z",
-    "sentAt": null
+    "sentAt": "2026-04-21T13:46:28.723Z"
   }
 ]
