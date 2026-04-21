@@ -42,12 +42,6 @@ const EvaluationsPage = () => {
   const [error, setError] = useState<string | null>(null);
   const [digestInfo, setDigestInfo] = useState<string | null>(null);
 
-  const allEvaluated =
-    rows.length > 0 &&
-    rows.every((row) =>
-      metaKeys.every((meta) => row.metas[meta] && row.metas[meta] !== "NONE")
-    );
-
   const isRowComplete = (row: EvaluationRow) =>
     metaKeys.every((meta) => row.metas[meta] && row.metas[meta] !== "NONE");
 
@@ -84,22 +78,6 @@ const EvaluationsPage = () => {
     try {
       await api.put(`/classes/${selectedClassId}/evaluations/${studentId}`, { meta, status });
       await loadEvaluations(selectedClassId);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
-    }
-  };
-
-  const sendDigest = async () => {
-    setError(null);
-    setDigestInfo(null);
-    try {
-      const result = await api.post<{ sent: Array<{ to: string }>; skipped: number }>(
-        "/jobs/send-daily-digests",
-        {}
-      );
-      setDigestInfo(
-        `Sent ${result.sent.length} email(s). Skipped: ${result.skipped}.`
-      );
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
     }
@@ -155,9 +133,6 @@ const EvaluationsPage = () => {
               ))}
             </Select>
           </FormControl>
-          <Button variant="contained" onClick={sendDigest} disabled={!allEvaluated}>
-            Send Daily Digest
-          </Button>
         </Stack>
       </Paper>
 
