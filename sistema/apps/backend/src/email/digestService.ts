@@ -1,5 +1,4 @@
 import { DateTime } from "luxon";
-import sgMail from "@sendgrid/mail";
 import { DEFAULT_TIMEZONE } from "../constants.js";
 import { outboxRepo } from "../repositories/outboxRepo.js";
 import { studentsRepo } from "../repositories/studentsRepo.js";
@@ -8,6 +7,7 @@ import { evaluationsRepo } from "../repositories/evaluationsRepo.js";
 import { EvaluationChangeEvent } from "../types.js";
 import { ValidationError } from "../errors.js";
 import { META_KEYS } from "../constants.js";
+import { emailSender } from "./emailSender.js";
 
 export interface DigestEmail {
   to: string;
@@ -27,28 +27,6 @@ const formatChangeLine = (event: EvaluationChangeEvent, classMap: Map<string, st
   const className = classMap.get(event.classId) ?? event.classId;
   const from = event.oldStatus ?? "(none)";
   return `• ${className} — ${event.meta}: ${from} → ${event.newStatus}`;
-};
-
-let sendGridConfigured = false;
-
-const configureSendGrid = () => {
-  if (sendGridConfigured) {
-    return;
-  }
-  const apiKey = process.env.SENDGRID_API_KEY;
-  if (!apiKey) {
-    throw new ValidationError("SENDGRID_API_KEY is required to send emails.");
-  }
-  sgMail.setApiKey(apiKey);
-  sendGridConfigured = true;
-};
-
-const getSendGridFrom = () => {
-  const from = process.env.SENDGRID_FROM;
-  if (!from) {
-    throw new ValidationError("SENDGRID_FROM is required to send emails.");
-  }
-  return from;
 };
 
 export const digestService = {
@@ -253,9 +231,7 @@ export const digestService = {
       ].join("\n")
     };
 
-    configureSendGrid();
-    await sgMail.send({
-      from: getSendGridFrom(),
+    await emailSender.sendEmail({
       to: email.to,
       subject: email.subject,
       text: email.body

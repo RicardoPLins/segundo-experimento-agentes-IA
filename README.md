@@ -8,7 +8,7 @@ Este repositório contém um sistema web (frontend + backend) em:
 - Backend: Node.js + TypeScript + Express (API)
 - Frontend: React + Vite + MUI
 
-O backend roda por padrão em `http://localhost:4000` e o frontend em `http://localhost:5173`.
+O backend roda por padrão em `http://localhost:4000` e o frontend em `http://localhost:5173` ou em `http://localhost:3000`.
 
 ## Requisitos
 
@@ -50,7 +50,7 @@ npm install
 npm run dev
 ```
 
-Abra o app em `http://localhost:5173`.
+Abra o app em `http://localhost:5173` ou `http://localhost:3000`.
 
 ## Variáveis de ambiente
 
@@ -58,11 +58,45 @@ Abra o app em `http://localhost:5173`.
 
 O backend carrega variáveis automaticamente via `dotenv` (importado no bootstrap).
 
-Obrigatórias para envio real de e-mails via SendGrid:
+Escolha o provedor de e-mail:
+
+```bash
+# sendgrid (padrão) ou maildev
+EMAIL_PROVIDER=sendgrid
+```
+
+#### SendGrid (envio real)
+
+https://app.sendgrid.com/settings/sender_auth/senders configure nesse site o email do sendgrid.
+
+https://app.sendgrid.com/settings/api_keys --> configure nesse aqui a api_key do email para ter a possibilidade de enviar emails.
 
 ```bash
 SENDGRID_API_KEY=SG.xxxxx
 SENDGRID_FROM=seu-remetente@seu-dominio.com
+```
+
+Notas importantes (SendGrid):
+
+- `SENDGRID_FROM` deve ser um remetente permitido/validado no SendGrid (Single Sender Verification ou domínio autenticado).
+- A API key precisa ter permissão de “Mail Send”.
+- Se o envio retornar **403 Forbidden**, normalmente é permissão da key e/ou remetente não verificado.
+
+#### MailDev (local)
+
+para rodar:
+- npm install -g maildev
+- maildev
+
+o servidor do email aparece em `http://localhost:1080`
+
+```bash
+EMAIL_PROVIDER=maildev
+MAILDEV_HOST=localhost
+MAILDEV_PORT=1025
+MAILDEV_FROM=dev@local.test
+# ou use EMAIL_FROM no lugar de MAILDEV_FROM
+# EMAIL_FROM=dev@local.test
 ```
 
 Opcional:
@@ -71,12 +105,6 @@ Opcional:
 # Porta do backend (default: 4000)
 PORT=4000
 ```
-
-Notas importantes (SendGrid):
-
-- `SENDGRID_FROM` deve ser um remetente permitido/validado no SendGrid (Single Sender Verification ou domínio autenticado).
-- A API key precisa ter permissão de “Mail Send”.
-- Se o envio retornar **403 Forbidden**, normalmente é permissão da key e/ou remetente não verificado.
 
 ### Frontend (opcional)
 
