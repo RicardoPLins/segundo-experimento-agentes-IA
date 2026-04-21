@@ -15,3 +15,16 @@ jobsRoutes.post(
     }
   }
 );
+
+jobsRoutes.post(
+  "/send-student-digest",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { studentId, classId, timezone } = req.body ?? {};
+      const result = await digestService.runStudentDigest({ studentId, classId, timezone });
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+);

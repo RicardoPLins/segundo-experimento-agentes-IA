@@ -33,7 +33,7 @@ interface EvaluationRow {
 }
 
 const metaKeys = ["requisitos", "testes", "backend", "frontend", "security"] as const;
-const statusValues = ["NONE", "MPA", "MA"] as const;
+const statusValues = ["MANA", "MPA", "MA"] as const;
 
 const EvaluationsPage = () => {
   const [classes, setClasses] = useState<ClassEntity[]>([]);
@@ -45,8 +45,11 @@ const EvaluationsPage = () => {
   const allEvaluated =
     rows.length > 0 &&
     rows.every((row) =>
-      metaKeys.every((meta) => row.metas[meta] && row.metas[meta] !== "NONE")
+      metaKeys.every((meta) => row.metas[meta] && row.metas[meta] !== "MANA")
     );
+
+  const isRowComplete = (row: EvaluationRow) =>
+    metaKeys.every((meta) => row.metas[meta] && row.metas[meta] !== "MANA");
 
   const loadClasses = async () => {
     const data = await api.get<ClassEntity[]>("/classes");
@@ -63,11 +66,13 @@ const EvaluationsPage = () => {
   };
 
   useEffect(() => {
-    loadClasses().catch((err) => setError(String(err)));
+    loadClasses().catch((err) => setError(err instanceof Error ? err.message : String(err)));
   }, []);
 
   useEffect(() => {
-    loadEvaluations(selectedClassId).catch((err) => setError(String(err)));
+    loadEvaluations(selectedClassId).catch((err) =>
+      setError(err instanceof Error ? err.message : String(err))
+    );
   }, [selectedClassId]);
 
   const update = async (studentId: string, meta: string, status: string) => {
@@ -80,7 +85,7 @@ const EvaluationsPage = () => {
       await api.put(`/classes/${selectedClassId}/evaluations/${studentId}`, { meta, status });
       await loadEvaluations(selectedClassId);
     } catch (err) {
-      setError(String(err));
+      setError(err instanceof Error ? err.message : String(err));
     }
   };
 
@@ -96,7 +101,26 @@ const EvaluationsPage = () => {
         `Sent ${result.sent.length} email(s). Skipped: ${result.skipped}.`
       );
     } catch (err) {
-      setError(String(err));
+      setError(err instanceof Error ? err.message : String(err));
+    }
+  };
+
+  const sendStudentDigest = async (studentId: string) => {
+    if (!selectedClassId) {
+      return;
+    }
+    setError(null);
+    setDigestInfo(null);
+    try {
+      const result = await api.post<{ sent: Array<{ to: string }>; skipped: number }>(
+        "/jobs/send-student-digest",
+        { studentId, classId: selectedClassId }
+      );
+      setDigestInfo(
+        `Sent ${result.sent.length} email(s) for student. Skipped: ${result.skipped}.`
+      );
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
     }
   };
 
@@ -146,6 +170,7 @@ const EvaluationsPage = () => {
                 {metaKeys.map((meta) => (
                   <TableCell key={meta}>{meta}</TableCell>
                 ))}
+                <TableCell align="right">Email</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -163,19 +188,38 @@ const EvaluationsPage = () => {
                         >
                           {statusValues.map((status) => (
                             <MenuItem key={status} value={status}>
-                              {status === "NONE" ? "None" : status}
+                              {status}
                             </MenuItem>
                           ))}
                         </Select>
                       </FormControl>
                     </TableCell>
                   ))}
+                  <TableCell align="right">
+                    <Button
+                      variant="outlined"
+                      onClick={() => sendStudentDigest(row.studentId)}
+                      disabled={!isRowComplete(row)}
+                    >
+                      Send
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </Paper>
       )}
+
+      <Paper sx={{ p: 2 }}>
+        <Typography variant="subtitle2" component="h3" sx={{ mb: 1 }}>
+          Legend
+        </Typography>
+        <Typography variant="body2">
+          MANA: Meta Ainda Não Atingida · MPA: Meta Parcialmente Atingida · MA: Meta
+          Atingida
+        </Typography>
+      </Paper>
     </Box>
   );
 };

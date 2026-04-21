@@ -68,5 +68,40 @@
     "meta": "security",
     "status": "MPA",
     "updatedAt": "2026-04-15T19:06:36.120Z"
+  },
+  {
+    "classId": "7ab79f05-a595-46d5-8456-79b839c86a84",
+    "studentId": "6df1e763-3fca-4076-850d-7e134cdb903b",
+    "meta": "requisitos",
+    "status": "MPA",
+    "updatedAt": "2026-04-15T19:20:52.422Z"
+  },
+  {
+    "classId": "7ab79f05-a595-46d5-8456-79b839c86a84",
+    "studentId": "6df1e763-3fca-4076-850d-7e134cdb903b",
+    "meta": "testes",
+    "status": "MA",
+    "updatedAt": "2026-04-15T19:20:55.666Z"
+  },
+  {
+    "classId": "7ab79f05-a595-46d5-8456-79b839c86a84",
+    "studentId": "6df1e763-3fca-4076-850d-7e134cdb903b",
+    "meta": "backend",
+    "status": "MA",
+    "updatedAt": "2026-04-15T19:20:59.667Z"
+  },
+  {
+    "classId": "7ab79f05-a595-46d5-8456-79b839c86a84",
+    "studentId": "6df1e763-3fca-4076-850d-7e134cdb903b",
+    "meta": "frontend",
+    "status": "MA",
+    "updatedAt": "2026-04-15T19:21:01.155Z"
+  },
+  {
+    "classId": "7ab79f05-a595-46d5-8456-79b839c86a84",
+    "studentId": "6df1e763-3fca-4076-850d-7e134cdb903b",
+    "meta": "security",
+    "status": "MPA",
+    "updatedAt": "2026-04-15T19:21:07.135Z"
   }
 ]

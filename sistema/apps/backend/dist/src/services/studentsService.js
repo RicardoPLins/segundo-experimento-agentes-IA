@@ -4,20 +4,24 @@ import { ConflictError, NotFoundError, ValidationError } from "../errors.js";
 import { studentsRepo } from "../repositories/studentsRepo.js";
 import { enrollmentsRepo } from "../repositories/enrollmentsRepo.js";
 const now = () => DateTime.utc().toISO();
+const CPF_REGEX = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
 export const studentsService = {
     async list() {
         return studentsRepo.list();
     },
     async create(input) {
         if (!input.name || !input.cpf || !input.email) {
-            throw new ValidationError("name, cpf, and email are required");
+            throw new ValidationError("Name, CPF, and email are required.");
+        }
+        if (!CPF_REGEX.test(input.cpf)) {
+            throw new ValidationError("CPF must match 000.000.000-00.");
         }
         const students = await studentsRepo.list();
         if (students.some((s) => s.cpf === input.cpf)) {
-            throw new ConflictError("cpf must be unique");
+            throw new ConflictError("CPF is already registered.");
         }
         if (students.some((s) => s.email === input.email)) {
-            throw new ConflictError("email must be unique");
+            throw new ConflictError("Email is already registered.");
         }
         const timestamp = now();
         const student = {
@@ -54,13 +58,16 @@ export const studentsService = {
             updatedAt: now()
         };
         if (!next.name || !next.cpf || !next.email) {
-            throw new ValidationError("name, cpf, and email are required");
+            throw new ValidationError("Name, CPF, and email are required.");
+        }
+        if (!CPF_REGEX.test(next.cpf)) {
+            throw new ValidationError("CPF must match 000.000.000-00.");
         }
         if (students.some((s) => s.id !== id && s.cpf === next.cpf)) {
-            throw new ConflictError("cpf must be unique");
+            throw new ConflictError("CPF is already registered.");
         }
         if (students.some((s) => s.id !== id && s.email === next.email)) {
-            throw new ConflictError("email must be unique");
+            throw new ConflictError("Email is already registered.");
         }
         const updated = [...students];
         updated[index] = next;

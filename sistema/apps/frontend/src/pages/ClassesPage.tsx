@@ -86,11 +86,13 @@ const ClassesPage = () => {
   };
 
   useEffect(() => {
-    load().catch((err) => setError(String(err)));
+    load().catch((err) => setError(err instanceof Error ? err.message : String(err)));
   }, []);
 
   useEffect(() => {
-    loadRoster(selectedClassId).catch((err) => setError(String(err)));
+    loadRoster(selectedClassId).catch((err) =>
+      setError(err instanceof Error ? err.message : String(err))
+    );
   }, [selectedClassId]);
 
   const submit = async () => {
@@ -100,7 +102,7 @@ const ClassesPage = () => {
       setForm({ topic: "", year: 2026, semester: 1 });
       await load();
     } catch (err) {
-      setError(String(err));
+      setError(err instanceof Error ? err.message : String(err));
     }
   };
 
@@ -113,7 +115,7 @@ const ClassesPage = () => {
       await api.post(`/classes/${selectedClassId}/students/${selectedStudentId}`, {});
       await loadRoster(selectedClassId);
     } catch (err) {
-      setError(String(err));
+      setError(err instanceof Error ? err.message : String(err));
     }
   };
 
@@ -127,7 +129,7 @@ const ClassesPage = () => {
       await loadRoster(selectedClassId);
       await load();
     } catch (err) {
-      setError(String(err));
+      setError(err instanceof Error ? err.message : String(err));
     }
   };
 
@@ -141,7 +143,7 @@ const ClassesPage = () => {
       }
       await load();
     } catch (err) {
-      setError(String(err));
+      setError(err instanceof Error ? err.message : String(err));
     }
   };
 
@@ -294,9 +296,7 @@ const ClassesPage = () => {
                     <TableRow key={row.studentId}>
                       <TableCell>{row.studentName}</TableCell>
                       {metaKeys.map((meta) => (
-                        <TableCell key={meta}>
-                          {row.metas[meta] === "NONE" ? "None" : row.metas[meta]}
-                        </TableCell>
+                        <TableCell key={meta}>{row.metas[meta]}</TableCell>
                       ))}
                     </TableRow>
                   ))}

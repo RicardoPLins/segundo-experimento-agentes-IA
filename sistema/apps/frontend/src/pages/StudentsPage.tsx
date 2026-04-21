@@ -47,7 +47,7 @@ const StudentsPage = () => {
   };
 
   useEffect(() => {
-    load().catch((err) => setError(String(err)));
+    load().catch((err) => setError(err instanceof Error ? err.message : String(err)));
   }, []);
 
   const submit = async () => {
@@ -57,7 +57,7 @@ const StudentsPage = () => {
       setForm({ name: "", cpf: "", email: "" });
       await load();
     } catch (err) {
-      setError(String(err));
+      setError(err instanceof Error ? err.message : String(err));
     }
   };
 
@@ -67,7 +67,7 @@ const StudentsPage = () => {
       await api.del(`/students/${id}`);
       await load();
     } catch (err) {
-      setError(String(err));
+      setError(err instanceof Error ? err.message : String(err));
     }
   };
 

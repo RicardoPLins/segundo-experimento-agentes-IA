@@ -19,8 +19,7 @@ evaluationsRoutes.get("/", async (req: Request, res: Response, next: NextFunctio
         const evaluation = evaluations.find(
           (e) => e.classId === classId && e.studentId === enrollment.studentId && e.meta === meta
         );
-        const rawStatus = (evaluation?.status as string | undefined) ?? "NONE";
-        acc[meta] = rawStatus === "MANA" ? "NONE" : rawStatus;
+        acc[meta] = evaluation?.status ?? "MANA";
         return acc;
       }, {});
       return {

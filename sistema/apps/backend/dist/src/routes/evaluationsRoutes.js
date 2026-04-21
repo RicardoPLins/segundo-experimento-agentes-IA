@@ -14,8 +14,7 @@ evaluationsRoutes.get("/", async (req, res, next) => {
             const student = students.find((s) => s.id === enrollment.studentId);
             const metas = META_KEYS.reduce((acc, meta) => {
                 const evaluation = evaluations.find((e) => e.classId === classId && e.studentId === enrollment.studentId && e.meta === meta);
-                const rawStatus = evaluation?.status ?? "NONE";
-                acc[meta] = rawStatus === "MANA" ? "NONE" : rawStatus;
+                acc[meta] = evaluation?.status ?? "MANA";
                 return acc;
             }, {});
             return {
