@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import nodemailer from "nodemailer";
+import sgMail from "@sendgrid/mail";
 import { DEFAULT_TIMEZONE } from "../constants.js";
 import { outboxRepo } from "../repositories/outboxRepo.js";
 import { studentsRepo } from "../repositories/studentsRepo.js";
@@ -29,25 +29,26 @@ const formatChangeLine = (event: EvaluationChangeEvent, classMap: Map<string, st
   return `• ${className} — ${event.meta}: ${from} → ${event.newStatus}`;
 };
 
-let cachedTransporter: nodemailer.Transporter | null = null;
-const MAILDEV_HOST = "localhost";
-const MAILDEV_PORT = 1025;
-const MAILDEV_FROM = "Web Scholar <no-reply@webscholar.local>";
+let sendGridConfigured = false;
 
-const getTransporter = async () => {
-  if (cachedTransporter) {
-    return { transporter: cachedTransporter, from: MAILDEV_FROM };
+const configureSendGrid = () => {
+  if (sendGridConfigured) {
+    return;
   }
+  const apiKey = process.env.SENDGRID_API_KEY;
+  if (!apiKey) {
+    throw new ValidationError("SENDGRID_API_KEY is required to send emails.");
+  }
+  sgMail.setApiKey(apiKey);
+  sendGridConfigured = true;
+};
 
-  const transporter = nodemailer.createTransport({
-    host: MAILDEV_HOST,
-    port: MAILDEV_PORT,
-    secure: false
-  });
-
-  cachedTransporter = transporter;
-
-  return { transporter, from: MAILDEV_FROM };
+const getSendGridFrom = () => {
+  const from = process.env.SENDGRID_FROM;
+  if (!from) {
+    throw new ValidationError("SENDGRID_FROM is required to send emails.");
+  }
+  return from;
 };
 
 export const digestService = {
@@ -252,9 +253,9 @@ export const digestService = {
       ].join("\n")
     };
 
-    const { transporter, from } = await getTransporter();
-    await transporter.sendMail({
-      from,
+    configureSendGrid();
+    await sgMail.send({
+      from: getSendGridFrom(),
       to: email.to,
       subject: email.subject,
       text: email.body

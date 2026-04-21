@@ -73,15 +73,15 @@
     "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
     "studentId": "160893ef-1649-4a98-a168-ce9f01a4bb47",
     "meta": "requisitos",
-    "status": "MANA",
-    "updatedAt": "2026-04-21T01:47:55.335Z"
+    "status": "MA",
+    "updatedAt": "2026-04-21T13:06:44.628Z"
   },
   {
     "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
     "studentId": "160893ef-1649-4a98-a168-ce9f01a4bb47",
     "meta": "testes",
-    "status": "MA",
-    "updatedAt": "2026-04-21T01:47:57.144Z"
+    "status": "MPA",
+    "updatedAt": "2026-04-21T13:06:40.094Z"
   },
   {
     "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",

@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import nodemailer from "nodemailer";
+import sgMail from "@sendgrid/mail";
 import { DEFAULT_TIMEZONE } from "../constants.js";
 import { outboxRepo } from "../repositories/outboxRepo.js";
 import { studentsRepo } from "../repositories/studentsRepo.js";
@@ -13,21 +13,24 @@ const formatChangeLine = (event, classMap) => {
     const from = event.oldStatus ?? "(none)";
     return `• ${className} — ${event.meta}: ${from} → ${event.newStatus}`;
 };
-let cachedTransporter = null;
-const MAILDEV_HOST = "localhost";
-const MAILDEV_PORT = 1025;
-const MAILDEV_FROM = "Web Scholar <no-reply@webscholar.local>";
-const getTransporter = async () => {
-    if (cachedTransporter) {
-        return { transporter: cachedTransporter, from: MAILDEV_FROM };
+let sendGridConfigured = false;
+const configureSendGrid = () => {
+    if (sendGridConfigured) {
+        return;
     }
-    const transporter = nodemailer.createTransport({
-        host: MAILDEV_HOST,
-        port: MAILDEV_PORT,
-        secure: false
-    });
-    cachedTransporter = transporter;
-    return { transporter, from: MAILDEV_FROM };
+    const apiKey = process.env.SENDGRID_API_KEY;
+    if (!apiKey) {
+        throw new ValidationError("SENDGRID_API_KEY is required to send emails.");
+    }
+    sgMail.setApiKey(apiKey);
+    sendGridConfigured = true;
+};
+const getSendGridFrom = () => {
+    const from = process.env.SENDGRID_FROM;
+    if (!from) {
+        throw new ValidationError("SENDGRID_FROM is required to send emails.");
+    }
+    return from;
 };
 export const digestService = {
     async runDailyDigest(timezone = DEFAULT_TIMEZONE) {
@@ -184,9 +187,9 @@ export const digestService = {
                 "— Web Scholar"
             ].join("\n")
         };
-        const { transporter, from } = await getTransporter();
-        await transporter.sendMail({
-            from,
+        configureSendGrid();
+        await sgMail.send({
+            from: getSendGridFrom(),
             to: email.to,
             subject: email.subject,
             text: email.body

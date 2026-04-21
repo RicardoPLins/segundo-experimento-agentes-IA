@@ -198,5 +198,25 @@
     "newStatus": "MPA",
     "changedAt": "2026-04-21T02:25:42.663Z",
     "sentAt": null
+  },
+  {
+    "id": "f44b0a00-3914-4c78-abd4-4196cf4c9f82",
+    "studentId": "160893ef-1649-4a98-a168-ce9f01a4bb47",
+    "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
+    "meta": "testes",
+    "oldStatus": "MA",
+    "newStatus": "MPA",
+    "changedAt": "2026-04-21T13:06:40.094Z",
+    "sentAt": null
+  },
+  {
+    "id": "22aeae4b-de15-44ed-8268-31db6614fdfa",
+    "studentId": "160893ef-1649-4a98-a168-ce9f01a4bb47",
+    "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
+    "meta": "requisitos",
+    "oldStatus": "MANA",
+    "newStatus": "MA",
+    "changedAt": "2026-04-21T13:06:44.628Z",
+    "sentAt": null
   }
 ]

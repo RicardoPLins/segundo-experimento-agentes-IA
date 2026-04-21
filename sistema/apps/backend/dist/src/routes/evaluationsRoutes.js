@@ -20,6 +20,7 @@ evaluationsRoutes.get("/", async (req, res, next) => {
             return {
                 studentId: enrollment.studentId,
                 studentName: student?.name ?? "",
+                studentEmail: student?.email ?? "",
                 metas
             };
         });
