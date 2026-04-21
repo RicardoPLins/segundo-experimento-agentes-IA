@@ -1,1 +1,34 @@
-[]
+[
+  {
+    "id": "f807953e-94c6-446a-93dd-fb6948ff70f0",
+    "name": "ricardo",
+    "cpf": "702.837.702-63",
+    "email": "rpl@cin.ufpe.br",
+    "createdAt": "2026-04-21T01:10:04.513Z",
+    "updatedAt": "2026-04-21T01:10:04.513Z"
+  },
+  {
+    "id": "30c49fb7-2b53-459f-a4af-1177737df3ad",
+    "name": "ricardo cin",
+    "cpf": "401.938.980-17",
+    "email": "rpl3@cin.ufpe.br",
+    "createdAt": "2026-04-21T01:31:05.707Z",
+    "updatedAt": "2026-04-21T01:31:05.707Z"
+  },
+  {
+    "id": "160893ef-1649-4a98-a168-ce9f01a4bb47",
+    "name": "ricardo lins",
+    "cpf": "799.830.186-74",
+    "email": "ricardinho200215@gmail.com",
+    "createdAt": "2026-04-21T01:47:35.785Z",
+    "updatedAt": "2026-04-21T01:47:35.785Z"
+  },
+  {
+    "id": "fa33a2fa-611f-4d57-bbb1-87e64ac141bd",
+    "name": "Ana",
+    "cpf": "123.456.789-01",
+    "email": "ana@example.com",
+    "createdAt": "2026-04-21T02:25:42.642Z",
+    "updatedAt": "2026-04-21T02:25:42.642Z"
+  }
+]

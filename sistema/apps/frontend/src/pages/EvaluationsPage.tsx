@@ -45,11 +45,11 @@ const EvaluationsPage = () => {
   const allEvaluated =
     rows.length > 0 &&
     rows.every((row) =>
-      metaKeys.every((meta) => row.metas[meta] && row.metas[meta] !== "MANA")
+      metaKeys.every((meta) => row.metas[meta] && row.metas[meta] !== "NONE")
     );
 
   const isRowComplete = (row: EvaluationRow) =>
-    metaKeys.every((meta) => row.metas[meta] && row.metas[meta] !== "MANA");
+    metaKeys.every((meta) => row.metas[meta] && row.metas[meta] !== "NONE");
 
   const loadClasses = async () => {
     const data = await api.get<ClassEntity[]>("/classes");
@@ -186,6 +186,9 @@ const EvaluationsPage = () => {
                             update(row.studentId, meta, String(e.target.value))
                           }
                         >
+                          <MenuItem value="NONE" disabled>
+                            None
+                          </MenuItem>
                           {statusValues.map((status) => (
                             <MenuItem key={status} value={status}>
                               {status}
@@ -216,8 +219,8 @@ const EvaluationsPage = () => {
           Legend
         </Typography>
         <Typography variant="body2">
-          MANA: Meta Ainda Não Atingida · MPA: Meta Parcialmente Atingida · MA: Meta
-          Atingida
+          NONE: Sem avaliação · MANA: Meta Ainda Não Atingida · MPA: Meta Parcialmente
+          Atingida · MA: Meta Atingida
         </Typography>
       </Paper>
     </Box>

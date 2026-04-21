@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "id": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
+    "topic": "agentics ia",
+    "year": 2026,
+    "semester": 1,
+    "createdAt": "2026-04-21T01:10:12.712Z",
+    "updatedAt": "2026-04-21T01:10:12.712Z"
+  },
+  {
+    "id": "463a1089-5f64-4669-9e71-d4416adaf433",
+    "topic": "Teste Email",
+    "year": 2026,
+    "semester": 1,
+    "createdAt": "2026-04-21T02:25:42.649Z",
+    "updatedAt": "2026-04-21T02:25:42.649Z"
+  }
+]

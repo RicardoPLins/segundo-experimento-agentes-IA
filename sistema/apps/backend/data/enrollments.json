@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
+    "studentId": "f807953e-94c6-446a-93dd-fb6948ff70f0",
+    "createdAt": "2026-04-21T01:10:18.137Z"
+  },
+  {
+    "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
+    "studentId": "30c49fb7-2b53-459f-a4af-1177737df3ad",
+    "createdAt": "2026-04-21T01:31:18.897Z"
+  },
+  {
+    "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
+    "studentId": "160893ef-1649-4a98-a168-ce9f01a4bb47",
+    "createdAt": "2026-04-21T01:47:46.884Z"
+  },
+  {
+    "classId": "463a1089-5f64-4669-9e71-d4416adaf433",
+    "studentId": "fa33a2fa-611f-4d57-bbb1-87e64ac141bd",
+    "createdAt": "2026-04-21T02:25:42.651Z"
+  }
+]

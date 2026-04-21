@@ -21,7 +21,7 @@ jobsRoutes.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { studentId, classId, timezone } = req.body ?? {};
-      const result = await digestService.runStudentDigest({ studentId, classId, timezone });
+      const result = await digestService.runStudentEvaluationEmail({ studentId, classId, timezone });
       res.json(result);
     } catch (error) {
       next(error);

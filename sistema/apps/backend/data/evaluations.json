@@ -1,1 +1,142 @@
-[]
+[
+  {
+    "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
+    "studentId": "f807953e-94c6-446a-93dd-fb6948ff70f0",
+    "meta": "requisitos",
+    "status": "MPA",
+    "updatedAt": "2026-04-21T01:10:26.395Z"
+  },
+  {
+    "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
+    "studentId": "f807953e-94c6-446a-93dd-fb6948ff70f0",
+    "meta": "testes",
+    "status": "MA",
+    "updatedAt": "2026-04-21T01:10:27.772Z"
+  },
+  {
+    "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
+    "studentId": "f807953e-94c6-446a-93dd-fb6948ff70f0",
+    "meta": "backend",
+    "status": "MA",
+    "updatedAt": "2026-04-21T01:10:29.239Z"
+  },
+  {
+    "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
+    "studentId": "f807953e-94c6-446a-93dd-fb6948ff70f0",
+    "meta": "frontend",
+    "status": "MPA",
+    "updatedAt": "2026-04-21T01:10:30.672Z"
+  },
+  {
+    "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
+    "studentId": "f807953e-94c6-446a-93dd-fb6948ff70f0",
+    "meta": "security",
+    "status": "MPA",
+    "updatedAt": "2026-04-21T01:10:32.400Z"
+  },
+  {
+    "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
+    "studentId": "30c49fb7-2b53-459f-a4af-1177737df3ad",
+    "meta": "requisitos",
+    "status": "MANA",
+    "updatedAt": "2026-04-21T01:31:28.230Z"
+  },
+  {
+    "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
+    "studentId": "30c49fb7-2b53-459f-a4af-1177737df3ad",
+    "meta": "testes",
+    "status": "MPA",
+    "updatedAt": "2026-04-21T01:31:29.612Z"
+  },
+  {
+    "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
+    "studentId": "30c49fb7-2b53-459f-a4af-1177737df3ad",
+    "meta": "backend",
+    "status": "MA",
+    "updatedAt": "2026-04-21T01:31:30.883Z"
+  },
+  {
+    "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
+    "studentId": "30c49fb7-2b53-459f-a4af-1177737df3ad",
+    "meta": "frontend",
+    "status": "MA",
+    "updatedAt": "2026-04-21T01:31:32.265Z"
+  },
+  {
+    "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
+    "studentId": "30c49fb7-2b53-459f-a4af-1177737df3ad",
+    "meta": "security",
+    "status": "MA",
+    "updatedAt": "2026-04-21T01:31:33.590Z"
+  },
+  {
+    "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
+    "studentId": "160893ef-1649-4a98-a168-ce9f01a4bb47",
+    "meta": "requisitos",
+    "status": "MANA",
+    "updatedAt": "2026-04-21T01:47:55.335Z"
+  },
+  {
+    "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
+    "studentId": "160893ef-1649-4a98-a168-ce9f01a4bb47",
+    "meta": "testes",
+    "status": "MA",
+    "updatedAt": "2026-04-21T01:47:57.144Z"
+  },
+  {
+    "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
+    "studentId": "160893ef-1649-4a98-a168-ce9f01a4bb47",
+    "meta": "backend",
+    "status": "MA",
+    "updatedAt": "2026-04-21T01:47:58.737Z"
+  },
+  {
+    "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
+    "studentId": "160893ef-1649-4a98-a168-ce9f01a4bb47",
+    "meta": "frontend",
+    "status": "MPA",
+    "updatedAt": "2026-04-21T01:48:00.363Z"
+  },
+  {
+    "classId": "adc18af6-fa50-4d54-8c89-eb9ae0d16618",
+    "studentId": "160893ef-1649-4a98-a168-ce9f01a4bb47",
+    "meta": "security",
+    "status": "MA",
+    "updatedAt": "2026-04-21T01:48:01.723Z"
+  },
+  {
+    "classId": "463a1089-5f64-4669-9e71-d4416adaf433",
+    "studentId": "fa33a2fa-611f-4d57-bbb1-87e64ac141bd",
+    "meta": "requisitos",
+    "status": "MPA",
+    "updatedAt": "2026-04-21T02:25:42.653Z"
+  },
+  {
+    "classId": "463a1089-5f64-4669-9e71-d4416adaf433",
+    "studentId": "fa33a2fa-611f-4d57-bbb1-87e64ac141bd",
+    "meta": "testes",
+    "status": "MPA",
+    "updatedAt": "2026-04-21T02:25:42.657Z"
+  },
+  {
+    "classId": "463a1089-5f64-4669-9e71-d4416adaf433",
+    "studentId": "fa33a2fa-611f-4d57-bbb1-87e64ac141bd",
+    "meta": "backend",
+    "status": "MPA",
+    "updatedAt": "2026-04-21T02:25:42.659Z"
+  },
+  {
+    "classId": "463a1089-5f64-4669-9e71-d4416adaf433",
+    "studentId": "fa33a2fa-611f-4d57-bbb1-87e64ac141bd",
+    "meta": "frontend",
+    "status": "MPA",
+    "updatedAt": "2026-04-21T02:25:42.661Z"
+  },
+  {
+    "classId": "463a1089-5f64-4669-9e71-d4416adaf433",
+    "studentId": "fa33a2fa-611f-4d57-bbb1-87e64ac141bd",
+    "meta": "security",
+    "status": "MPA",
+    "updatedAt": "2026-04-21T02:25:42.663Z"
+  }
+]
