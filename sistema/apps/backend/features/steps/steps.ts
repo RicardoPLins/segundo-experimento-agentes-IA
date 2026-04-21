@@ -110,6 +110,19 @@ When(
   }
 );
 
+When(
+  "I request the student digest for {string} in {string}",
+  async function (this: TestWorld, studentName: string, topic: string) {
+    const student = this.studentsByName.get(studentName);
+    const classEntity = this.classesByTopic.get(topic);
+    assert.ok(student && classEntity);
+    this.lastResponse = await this.api.post("/jobs/send-student-digest").send({
+      studentId: student!.id,
+      classId: classEntity!.id
+    });
+  }
+);
+
 Then(
   "the evaluations table for {string} shows {string} has {string} = {string}",
   async function (this: TestWorld, topic: string, studentName: string, meta: string, status: string) {
