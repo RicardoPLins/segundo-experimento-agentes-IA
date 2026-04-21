@@ -7,6 +7,7 @@ import { enrollmentsRepo } from "../repositories/enrollmentsRepo.js";
 
 const now = () => DateTime.utc().toISO();
 const CPF_REGEX = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 export const studentsService = {
   async list(): Promise<Student[]> {
@@ -19,6 +20,9 @@ export const studentsService = {
     }
     if (!CPF_REGEX.test(input.cpf)) {
       throw new ValidationError("CPF must match 000.000.000-00.");
+    }
+    if (!EMAIL_REGEX.test(input.email)) {
+      throw new ValidationError("Email must be a valid address.");
     }
     const students = await studentsRepo.list();
     if (students.some((s) => s.cpf === input.cpf)) {
@@ -68,6 +72,9 @@ export const studentsService = {
     }
     if (!CPF_REGEX.test(next.cpf)) {
       throw new ValidationError("CPF must match 000.000.000-00.");
+    }
+    if (!EMAIL_REGEX.test(next.email)) {
+      throw new ValidationError("Email must be a valid address.");
     }
     if (students.some((s) => s.id !== id && s.cpf === next.cpf)) {
       throw new ConflictError("CPF is already registered.");

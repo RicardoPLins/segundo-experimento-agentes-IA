@@ -40,6 +40,8 @@ const StudentsPage = () => {
   const [students, setStudents] = useState<Student[]>([]);
   const [form, setForm] = useState({ name: "", cpf: "", email: "" });
   const [error, setError] = useState<string | null>(null);
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const isEmailValid = emailRegex.test(form.email);
 
   const load = async () => {
     const data = await api.get<Student[]>("/students");
@@ -52,6 +54,10 @@ const StudentsPage = () => {
 
   const submit = async () => {
     setError(null);
+    if (!isEmailValid) {
+      setError("Email must be a valid address.");
+      return;
+    }
     try {
       await api.post<Student>("/students", form);
       setForm({ name: "", cpf: "", email: "" });
@@ -103,6 +109,9 @@ const StudentsPage = () => {
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setForm({ ...form, email: e.target.value })
             }
+            placeholder="name@example.com"
+            helperText="Format: name@example.com"
+            error={form.email.length > 0 && !isEmailValid}
           />
           <Button variant="contained" onClick={submit}>
             Add Student
